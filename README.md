@@ -1,8 +1,8 @@
-# 吉北高校科技成果管理系统 前端项目说明
+# 吉北高校科技成果管理系统 - 前端项目
 
 ## 项目简介
 
-吉北高校科技成果管理系统是一套基于 Vue.js 和 Element UI 构建的开源后台管理系统前端解决方案，本仓库为其前端实现部分。系统提供了丰富的组件和功能模块，可快速搭建企业级中后台管理系统，适用于各类管理平台、CMS、OA 等业务场景。
+吉北高校科技成果管理系统是一套基于 Vue.js 和 Element UI 构建的后台管理系统前端解决方案，本仓库为其前端实现部分。系统提供了丰富的组件和功能模块，可快速搭建企业级中后台管理系统，适用于各类管理平台、CMS、OA 等业务场景。
 
 ## 技术栈
 
@@ -15,7 +15,6 @@
 - **样式预处理**：Sass
 - **代码规范**：ESLint
 - **其他工具**：
-
   - 图表：ECharts 5.6.0
   - 富文本编辑器：Quill 1.3.7
   - 拖拽组件：vuedraggable 2.24.3
@@ -23,47 +22,39 @@
 
 ## 环境要求
 
-- Node.js ≥ 8.9
-- npm ≥ 3.0.0 或 yarn
+- Node.js >= 8.9
+- npm >= 3.0.0 或 yarn
 
 ## 快速开始
 
 ### 1. 克隆项目
 
-bash
-
 ```bash
-git clone https://gitee.com/y_project/RuoYi-Vue
-cd ruoyi-ui
+git clone https://github.com/foorgange/jiebei-ruiyiui-web.git
+cd jiebei-ruiyiui-web/ruoyi-ui
 ```
 
 ### 2. 安装依赖
-
-bash
 
 ```bash
 # 使用npm安装
 npm install
 
 # 解决npm下载速度慢的问题（推荐）
-npm install --registry=https://registry.npm.taobao.org
+npm install --registry=https://registry.npmmirror.com
 ```
 
 > 建议不要直接使用 cnpm 安装依赖，可能会出现各种诡异的 bug
 
 ### 3. 启动开发服务器
 
-bash
-
 ```bash
 npm run dev
 ```
 
-启动成功后，浏览器访问 [http://localhost:80](http://localhost/) 即可查看项目
+启动成功后，浏览器访问 [http://localhost](http://localhost/) 即可查看项目（默认端口 80）。
 
 ### 4. 构建生产版本
-
-bash
 
 ```bash
 # 构建测试环境
@@ -73,11 +64,9 @@ npm run build:stage
 npm run build:prod
 ```
 
-构建完成后，生成的静态文件会存放在 `dist` 目录下
+构建完成后，生成的静态文件会存放在 `dist` 目录下。
 
 ## 项目结构
-
-plaintext
 
 ```plaintext
 ruoyi-ui/
@@ -149,10 +138,6 @@ ruoyi-ui/
 
 在 vue.config.js 中可配置 API 代理，默认配置如下：
 
-javascript
-
-运行
-
 ```javascript
 devServer: {
   proxy: {
@@ -167,29 +152,26 @@ devServer: {
 }
 ```
 
-可根据实际后端服务地址修改 `target` 值
+可根据实际后端服务地址修改 `target` 值。
 
 ### 2. 端口配置
 
 默认端口为 80，可通过以下方式修改：
 
-bash
-
 ```bash
 # 命令行方式
 npm run dev --port=8080
+```
 
-# 或修改vue.config.js中的port配置
+或修改 vue.config.js 中的 port 配置：
+
+```javascript
 const port = process.env.port || process.env.npm_config_port || 8080
 ```
 
 ### 3. 静态资源路径
 
 生产环境部署时，可修改 vue.config.js 中的 `publicPath` 配置：
-
-javascript
-
-运行
 
 ```javascript
 publicPath: process.env.NODE_ENV === "production" ? "/your-base-path/" : "/",
@@ -201,45 +183,33 @@ publicPath: process.env.NODE_ENV === "production" ? "/your-base-path/" : "/",
 
 1. **在组件中定义需要使用的字典**
 
-javascript
-
-运行
-
-```javascript
-export default {
-  dicts: ['dict_type_1', 'dict_type_2'],
-  // ...
-}
-```
+   ```javascript
+   export default {
+     dicts: ['dict_type_1', 'dict_type_2'],
+     // ...
+   }
+   ```
 
 2. **在模板中使用**
 
-html
+   ```html
+   <!-- 直接显示标签 -->
+   {{ dict.label.dict_type_1[value] }}
 
-预览
-
-```html
-<!-- 直接显示标签 -->
-{{ dict.label.dict_type_1[value] }}
-
-<!-- 下拉选择框 -->
-<el-select v-model="value">
-  <el-option 
-    v-for="item in dict.type.dict_type_1" 
-    :key="item.value" 
-    :label="item.label" 
-    :value="item.value"
-  ></el-option>
-</el-select>
-```
+   <!-- 下拉选择框 -->
+   <el-select v-model="value">
+     <el-option
+       v-for="item in dict.type.dict_type_1"
+       :key="item.value"
+       :label="item.label"
+       :value="item.value"
+     ></el-option>
+   </el-select>
+   ```
 
 ## API 请求封装
 
 系统对 Axios 进行了封装，统一处理请求、响应和错误：
-
-javascript
-
-运行
 
 ```javascript
 // 导入请求工具
@@ -266,14 +236,18 @@ export function saveData(data) {
 ## 常见问题
 
 1. **安装依赖时报错**
-   尝试删除 `node_modules` 目录和 `package-lock.json` 文件，然后重新安装：
-   bash
 
-    ```bash
-    rm -rf node_modules package-lock.json
-    npm install --registry=https://registry.npm.taobao.org
-    ```
+   尝试删除 `node_modules` 目录和 `package-lock.json` 文件，然后重新安装：
+
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install --registry=https://registry.npmmirror.com
+   ```
+
 2. **启动服务后无法访问后端接口**
+
    检查 vue.config.js 中的代理配置是否正确，确保后端服务已启动且地址正确。
+
 3. **构建生产版本后样式错乱**
+
    检查是否有全局样式污染，或尝试清除浏览器缓存。
